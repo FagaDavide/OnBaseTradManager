@@ -1,0 +1,83 @@
+﻿<Window
+    x:Class="OnBaseTradManager.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OnBaseTradManager"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Margin="10" Orientation="Horizontal">
+                <CheckBox Content="CheckBox" IsChecked="{Binding IsChecked}" />
+                <CheckBox Content="CheckBox" IsChecked="{Binding IsChecked}" />
+            </StackPanel>
+            <StackPanel Margin="10" Orientation="Horizontal">
+                <Button Click="OnClickLoadData" Content="Load Data" />
+                <Button Click="OnClickFilter" Content="Filter" />
+                <Button Click="OnClickLoadObs" Content="Load Obs" />
+            </StackPanel>
+
+            <!--  GRID  -->
+            <StackPanel Margin="20">
+                <DataGrid
+                    x:Name="mainDataGrid"
+                    MaxHeight="500"
+                    Margin="10"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    HorizontalScrollBarVisibility="Visible"
+                    ItemsSource="{Binding ObsObjOnBaseTrad}"
+                    ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    VerticalScrollBarVisibility="Visible">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding id}"
+                            CanUserResize="True"
+                            Header="id"
+                            IsReadOnly="true" />
+                        <DataGridTextColumn
+                             Width="*"
+                            Binding="{Binding source}"
+                            CanUserResize="true"
+                            Header="source"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                             Width="*"
+                            Binding="{Binding description}"
+                            CanUserResize="true"
+                            Header="description"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                             Width="*"
+                            Binding="{Binding tradEN}"
+                            CanUserResize="True"
+                            Header="tradEN"
+                            IsReadOnly="False" />
+                        <DataGridTextColumn
+                             Width="*"
+                            Binding="{Binding tradFR}"
+                            CanUserResize="True"
+                            Header="tradFR"
+                            IsReadOnly="False" />
+                        <DataGridTextColumn
+                             Width="*"
+                            Binding="{Binding tradDE}"
+                            CanUserResize="True"
+                            Header="tradDE"
+                            IsReadOnly="False" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+
+
+        </StackPanel>
+    </Grid>
+</Window>
