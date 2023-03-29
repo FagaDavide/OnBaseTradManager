@@ -1,4 +1,10 @@
-﻿using System.ComponentModel;
+﻿/*====================================================================*\
+Name ........ : BaseViewModel.cs
+Role ........ : Base of all ViewModels manage the property change
+Author ...... : Davide Faga
+Date ........ : 28.03.2023
+\*====================================================================*/
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace OnBaseTradManager.ViewModels

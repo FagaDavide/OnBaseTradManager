@@ -1,139 +1,180 @@
-﻿using OnBaseTradManager.Models;
+﻿/*====================================================================*\
+Name ........ : MainWindowsViewModel.cs
+Role ........ : Main ViewModel manage all datas
+Author ...... : Davide Faga
+Date ........ : 28.03.2023
+\*====================================================================*/
+using OnBaseTradManager.Models;
 using OnBaseTradManager.Tools;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-
 
 namespace OnBaseTradManager.ViewModels
 {
     public class MainWindowsViewModel : BaseViewModel
     {
-        //CONST
+        /*------------------------------------------------------------------*\
+        |*							CONSTANTE        						*|
+        \*------------------------------------------------------------------*/
         const string pathFileEN = @"C:\test\DEV_EN_OUT_20230327.csv";
         const string pathFileFR = @"C:\test\DEV_FR_OUT_20230327.csv";
         const string pathFileDE = @"C:\test\DEV_DE_OUT_20230327.csv";
 
+        /*------------------------------------------------------------------*\
+        |*							VARIABLE                				*|
+        \*------------------------------------------------------------------*/
+        private List<ObjOnBaseTrad> listObjOnBaseEN = new();
+        private Dictionary<string, ObjOnBaseTrad> dicoObjOnBaseModified = new();
+        private ObservableCollection<ObjOnBaseTrad> obsObjOnBaseTradTMP = new();
+        private ObservableCollection<ObjOnBaseTrad> obsObjOnBaseTrad = new();
+        private bool isBtnLoadObsClickable = false;
+        private bool isBtnLoadDataClickable = true;
+        private bool isBtnFilterClickable = false;
+        private string filter = String.Empty;
 
-        //VAR
-        private List<ObjOnBaseTrad> listObjOnBaseEN;
-       
-        private ObservableCollection<ObjOnBaseTrad> obsObjOnBaseTrad;
+        /*------------------------------------------------------------------*\
+        |*							PROPERTIE                				*|
+        \*------------------------------------------------------------------*/
         public ObservableCollection<ObjOnBaseTrad> ObsObjOnBaseTrad
         {
             get { return obsObjOnBaseTrad; }
-            set 
+            set
             {
                 obsObjOnBaseTrad = value;
                 OnPropertyChanged();
             }
         }
-        private ObservableCollection<ObjOnBaseTrad> obsObjOnBaseTradTMP;
 
-        private bool isChecked = false;
-        public bool IsChecked
+        public bool IsBtnLoadDataClickable
         {
-            get { return isChecked; }
+            get { return isBtnLoadDataClickable; }
             set
             {
-                isChecked = value;
+                isBtnLoadDataClickable = value;
                 OnPropertyChanged();
             }
         }
 
-        //CONSTRUCTOR
-        public MainWindowsViewModel()
+        public bool IsBtnLoadObsClickable
         {
-            ObsObjOnBaseTrad = new ObservableCollection<ObjOnBaseTrad>();
-            isChecked = false;
+            get { return isBtnLoadObsClickable; }
+            set
+            {
+                isBtnLoadObsClickable = value;
+                OnPropertyChanged();
+            }
         }
 
+        public bool IsBtnFilterClickable
+        {
+            get { return isBtnFilterClickable; }
+            set
+            {
+                isBtnFilterClickable = value;
+                OnPropertyChanged();
+            }
+        }
 
-       
+        public string Filter
+        {
+            get { return filter; }
+            set
+            {
+                filter = value;
+                OnPropertyChanged();
+            }
+        }
 
+        /*------------------------------------------------------------------*\
+        |*							CONSTRUCTOR     						*|
+        \*------------------------------------------------------------------*/
+        public MainWindowsViewModel() { }
 
-        //FONCTION
-        public void loadObs()
+        /*------------------------------------------------------------------*\
+        |*							FONCTION        						*|
+        \*------------------------------------------------------------------*/
+        public void AddObjOnBaseTradToDico(ObjOnBaseTrad objOnBaseTradModified)
+        {
+            if (dicoObjOnBaseModified.ContainsKey(objOnBaseTradModified.id))
+                dicoObjOnBaseModified[objOnBaseTradModified.id] = objOnBaseTradModified;
+            else
+                dicoObjOnBaseModified.Add(objOnBaseTradModified.id, objOnBaseTradModified);
+        }
+        public void LoadObs()
         {
             ObsObjOnBaseTrad = obsObjOnBaseTradTMP;
-            IsChecked = true;
         }
-        public void filterDATA()
+
+        /// <summary>
+        /// Filter Data by source
+        /// </summary>
+        /// <param name="filter"></param>
+        public void FilterDATA()
         {
-            var query = listObjOnBaseEN;//.Where(ob => ob.source
-                                       //.Contains("pref-ga", StringComparison.OrdinalIgnoreCase))
-                                       //.ToList();
+            IsBtnLoadObsClickable = false;
+            IsBtnFilterClickable = false;
+            var query = listObjOnBaseEN.Where(ob => ob.source
+                                       .Contains(filter, StringComparison.OrdinalIgnoreCase))
+                                       .ToList();
 
             obsObjOnBaseTradTMP = new ObservableCollection<ObjOnBaseTrad>(query);
-            IsChecked = false;
-        }
+            IsBtnLoadObsClickable = true;
+            IsBtnFilterClickable = true;
 
+        }
+        /// <summary>
+        /// Load data reading csv EN-FR-DE
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void LoadDATA()
         {
-            Debug.WriteLine("YOYOYOYOYOYOYOYOYOYOOY");
-            var readerEN = new StreamReader(File.OpenRead(pathFileEN));
-            var readerFR = new StreamReader(File.OpenRead(pathFileFR));
-            var readerDE = new StreamReader(File.OpenRead(pathFileDE));
-            //List<ObjOnBaseTrad> listObjOnBaseEN = new List<ObjOnBaseTrad>();
-            List<ObjOnBaseTrad> listObjOnBaseFR = new List<ObjOnBaseTrad>();
-            List<ObjOnBaseTrad> listObjOnBaseDE = new List<ObjOnBaseTrad>();
+            IsBtnFilterClickable = false;
+            IsBtnLoadDataClickable = false;
+            IsBtnLoadObsClickable = false;
+            Filter = String.Empty;
+            List<ObjOnBaseTrad> listObjOnBaseFR;
+            List<ObjOnBaseTrad> listObjOnBaseDE;
 
-            Debug.WriteLine("Lecture fichiers");
-            Debug.WriteLine(pathFileEN);
-            listObjOnBaseEN = ReadTradCSV.Read(readerEN);
-            Debug.WriteLine(pathFileFR);
-            listObjOnBaseFR = ReadTradCSV.Read(readerFR);
-            Debug.WriteLine(pathFileDE);
-            listObjOnBaseDE = ReadTradCSV.Read(readerDE);
-            Debug.WriteLine("Fin lecture\n");
+            listObjOnBaseEN = ToolTradCSV.Read(pathFileEN);
+            listObjOnBaseFR = ToolTradCSV.Read(pathFileFR);
+            listObjOnBaseDE = ToolTradCSV.Read(pathFileDE);
 
-            Debug.WriteLine("Verification Count:");
-            Debug.WriteLine(listObjOnBaseEN.Count);
-            Debug.WriteLine(listObjOnBaseFR.Count);
-            Debug.WriteLine(listObjOnBaseDE.Count);
+            Debug.WriteLine("Count Verification:");
             if (listObjOnBaseEN.Count == listObjOnBaseFR.Count &&
                 listObjOnBaseEN.Count == listObjOnBaseDE.Count)
                 Debug.WriteLine("Verification OK\n");
             else
             {
-                Debug.WriteLine("Verification NOT OK \n Fermeture du programme");
-                throw new Exception("Verification NOT OK");
+                listObjOnBaseEN.Clear();
+                IsBtnLoadDataClickable = true;
+                Debug.WriteLine("Count Verification NOT OK");
+                throw new Exception("Count Verification NOT OK");
             }
 
-            Debug.WriteLine("Verification de chaque object:");
-            bool isListsOK = true;
+            Debug.WriteLine("Each Object Verification:");
             for (int i = 0; i < listObjOnBaseEN.Count; i++)
             {
                 if (listObjOnBaseEN[i].Equals(listObjOnBaseFR[i]) &&
                     listObjOnBaseEN[i].Equals(listObjOnBaseDE[i]) &&
                     listObjOnBaseFR[i].Equals(listObjOnBaseDE[i]))
                 {
-                    listObjOnBaseEN[i].tradFR = listObjOnBaseFR[i].tradEN; //a refaire au propre car pour l'instant tout va dans tradEN à la lecture du stream
+                    //everything goes in tradEN when reading the stream
+                    listObjOnBaseEN[i].tradFR = listObjOnBaseFR[i].tradEN;
                     listObjOnBaseEN[i].tradDE = listObjOnBaseDE[i].tradEN;
                 }
                 else
                 {
-                    isListsOK = false;
-                    break;
+                    listObjOnBaseEN.Clear();
+                    IsBtnLoadDataClickable = true;
+                    Debug.WriteLine("Each Object Verification NOT OK (id, description and source)");
+                    throw new Exception("Each Object Verification NOT OK (id, description and source)");
                 }
             }
-            if (isListsOK)
-                Debug.WriteLine("L'id, la description et la source sont identiques pour EN-FR-DE");
-            else
-            {
-                Debug.WriteLine("Il y a des objects qui ne sont pas identiques quand on compare\n" +
-                    " l'id, la description et la source ");
-                throw new Exception("Il y a des objects qui ne sont pas identiques quand on compare\n" +
-                    " l'id, la description et la source ");
-            }
-     
-            IsChecked = true;
+            IsBtnFilterClickable = true;
+            IsBtnLoadDataClickable = true;
         }
     }
 }

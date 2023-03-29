@@ -8,25 +8,74 @@
     Title="MainWindow"
     Width="800"
     Height="450"
+    WindowState="Maximized"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel Orientation="Vertical">
-            <StackPanel Margin="10" Orientation="Horizontal">
-                <CheckBox Content="CheckBox" IsChecked="{Binding IsChecked}" />
-                <CheckBox Content="CheckBox" IsChecked="{Binding IsChecked}" />
-            </StackPanel>
-            <StackPanel Margin="10" Orientation="Horizontal">
-                <Button Click="OnClickLoadData" Content="Load Data" />
-                <Button Click="OnClickFilter" Content="Filter" />
-                <Button Click="OnClickLoadObs" Content="Load Obs" />
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel VerticalAlignment="Stretch" Orientation="Vertical">
+            <StackPanel
+                Grid.Row="0"
+                Margin="10"
+                VerticalAlignment="Stretch"
+                Orientation="Horizontal">
+
+                <GroupBox HorizontalAlignment="Stretch" Header="Files Config">
+                    <StackPanel Margin="10" Orientation="Horizontal" />
+                </GroupBox>
+
+                <GroupBox HorizontalAlignment="Stretch" Header="Filter Config">
+                    <StackPanel Margin="10" Orientation="Horizontal">
+                        <Label Margin="10,10,1,10" Content="Filter:" />
+                        <TextBox
+                            x:Name="mainTbFilter"
+                            Width="200"
+                            Margin="1,10,10,10"
+                            MaxLength="100"
+                            MaxLines="1"
+                            Text="{Binding Filter}"
+                            TextChanged="OnTextChangedFilter" />
+                    </StackPanel>
+                </GroupBox>
             </StackPanel>
 
+
+            <!--  BUTTON  -->
+            <StackPanel
+                Grid.Row="1"
+                Margin="10"
+                VerticalAlignment="Stretch"
+                Orientation="Horizontal">
+                <Button
+                    Click="onClickLoadData"
+                    Content="Load Data"
+                    IsEnabled="{Binding IsBtnLoadDataClickable}" />
+                <Button
+                    Click="OnClickFilter"
+                    Content="Filter"
+                    IsEnabled="{Binding IsBtnFilterClickable}" />
+                <Button
+                    Click="OnClickLoadObs"
+                    Content="Load Obs"
+                    IsEnabled="{Binding IsBtnLoadObsClickable}" />
+            </StackPanel>
+
+
             <!--  GRID  -->
-            <StackPanel Margin="20">
+            <StackPanel
+                Grid.Row="2"
+                Margin="10"
+                VerticalAlignment="Stretch">
+                <!--  WARINIG DataGrid needs a fix Height for best UI performance  -->
                 <DataGrid
                     x:Name="mainDataGrid"
-                    MaxHeight="500"
-                    Margin="10"
+                    Height="450"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
                     HorizontalScrollBarVisibility="Visible"
@@ -34,40 +83,42 @@
                     ScrollViewer.CanContentScroll="True"
                     ScrollViewer.HorizontalScrollBarVisibility="Visible"
                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    CellEditEnding="OnCellEditEnding"
+                    SelectionUnit="Cell"
                     VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
                         <DataGridTextColumn
-                            Width="*"
+                            Width="*" 
                             Binding="{Binding id}"
                             CanUserResize="True"
                             Header="id"
                             IsReadOnly="true" />
                         <DataGridTextColumn
-                             Width="*"
+                            Width="*"
                             Binding="{Binding source}"
                             CanUserResize="true"
                             Header="source"
                             IsReadOnly="True" />
                         <DataGridTextColumn
-                             Width="*"
+                            Width="*"
                             Binding="{Binding description}"
                             CanUserResize="true"
                             Header="description"
                             IsReadOnly="True" />
                         <DataGridTextColumn
-                             Width="*"
+                            Width="*"
                             Binding="{Binding tradEN}"
                             CanUserResize="True"
                             Header="tradEN"
                             IsReadOnly="False" />
                         <DataGridTextColumn
-                             Width="*"
+                            Width="*"
                             Binding="{Binding tradFR}"
                             CanUserResize="True"
                             Header="tradFR"
                             IsReadOnly="False" />
                         <DataGridTextColumn
-                             Width="*"
+                            Width="*"
                             Binding="{Binding tradDE}"
                             CanUserResize="True"
                             Header="tradDE"
@@ -75,9 +126,15 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
+        </StackPanel>
 
-
-
+        <!--  STATUS BAR  -->
+        <StackPanel Grid.Row="3" VerticalAlignment="Bottom">
+            <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
+                <StatusBarItem>
+                    <TextBlock Name="mainStatusBar" Text="{Binding ObsObjOnBaseTrad.Count}" />
+                </StatusBarItem>
+            </StatusBar>
         </StackPanel>
     </Grid>
 </Window>

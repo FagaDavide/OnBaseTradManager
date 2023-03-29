@@ -1,24 +1,38 @@
-﻿using OnBaseTradManager.Models;
+﻿
+/*====================================================================*\
+Name ........ : ToolTradCSV.cs
+Role ........ : Tool to read/write csv
+Author ...... : Davide Faga
+Date ........ : 28.03.2023
+\*====================================================================*/
+using OnBaseTradManager.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 
 namespace OnBaseTradManager.Tools
 {
-    static class ReadTradCSV
+    static class ToolTradCSV
     {
-        public static List<ObjOnBaseTrad> Read(StreamReader streamReader)
+        /// <summary>
+        /// Read traduction file csv OnBase
+        /// </summary>
+        /// <param name="pathFile"></param>
+        /// <returns>List of ObjOnBaseTrad</returns>
+        public static List<ObjOnBaseTrad> Read(string pathFile)
         {
             var listObjOnBase = new List<ObjOnBaseTrad>();
+            var streamReader = new StreamReader(File.OpenRead(pathFile));
             ObjOnBaseTrad currentObjOnBase;
-            var line = streamReader.ReadLine();
             string[] values;
 
+            _ = streamReader.ReadLine(); //Read useless headers
             while (!streamReader.EndOfStream)
             {
-                line = streamReader.ReadLine();
-                values = line!.Split(';'); //doit pas etre null
+                string? line = streamReader.ReadLine();
+                values = line!.Split(';'); //must not be null
 
                 if (values.Length > 0)
                 {
@@ -53,7 +67,7 @@ namespace OnBaseTradManager.Tools
                         };
                     listObjOnBase.Add(currentObjOnBase);
                 }
-                else { Console.WriteLine("!!! un obj louche !!! "); }
+                else { Debug.WriteLine("!!! un obj louche !!! "); }
             }
             return listObjOnBase;
         }
