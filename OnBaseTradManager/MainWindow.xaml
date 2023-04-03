@@ -6,8 +6,8 @@
     xmlns:local="clr-namespace:OnBaseTradManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="1920"
+    Height="1080"
     WindowState="Maximized"
     mc:Ignorable="d">
     <Grid>
@@ -19,51 +19,140 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel VerticalAlignment="Stretch" Orientation="Vertical">
+        <StackPanel Orientation="Vertical">
             <StackPanel
                 Grid.Row="0"
-                Margin="10"
-                VerticalAlignment="Stretch"
+                Margin="0"
                 Orientation="Horizontal">
 
-                <GroupBox HorizontalAlignment="Stretch" Header="Files Config">
-                    <StackPanel Margin="10" Orientation="Horizontal" />
-                </GroupBox>
+                <GroupBox Margin="10" Header="Traduction File Path">
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <Label Content="English file : " />
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBox
+                                    x:Name="mainTbFileEnglish"
+                                    Width="200"
+                                    VerticalContentAlignment="Center"
+                                    IsReadOnly="True"
+                                    Text="{Binding PathFileEN}"
+                                    TextWrapping="NoWrap" />
+                                <Button
+                                    VerticalContentAlignment="Stretch"
+                                    Click="OnClickBtnLangEnglish"
+                                    Content="   ...   " />
+                            </StackPanel>
+                        </StackPanel>
 
-                <GroupBox HorizontalAlignment="Stretch" Header="Filter Config">
-                    <StackPanel Margin="10" Orientation="Horizontal">
-                        <Label Margin="10,10,1,10" Content="Filter:" />
-                        <TextBox
-                            x:Name="mainTbFilter"
-                            Width="200"
-                            Margin="1,10,10,10"
-                            MaxLength="100"
-                            MaxLines="1"
-                            Text="{Binding Filter}"
-                            TextChanged="OnTextChangedFilter" />
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <Label Content="French file : " />
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBox
+                                    x:Name="mainTbFileFrench"
+                                    Width="200"
+                                    VerticalContentAlignment="Center"
+                                    IsReadOnly="True"
+                                    Text="{Binding PathFileFR}"
+                                    TextWrapping="NoWrap" />
+                                <Button
+                                    VerticalContentAlignment="Stretch"
+                                    Click="OnClickBtnLangFrench"
+                                    Content="   ...   " />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <Label Content="German file : " />
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBox
+                                    x:Name="mainTbFileGerman"
+                                    Width="200"
+                                    VerticalContentAlignment="Center"
+                                    IsReadOnly="True"
+                                    Text="{Binding PathFileDE}"
+                                    TextWrapping="NoWrap" />
+                                <Button
+                                    VerticalContentAlignment="Stretch"
+                                    Click="OnClickBtnLangGerman"
+                                    Content="   ...   " />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <Label Content="Save directory path : " />
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBox
+                                    x:Name="mainTbSavePath"
+                                    Width="200"
+                                    VerticalContentAlignment="Center"
+                                    IsReadOnly="True"
+                                    Text="{Binding PathSave}"
+                                    TextWrapping="NoWrap" />
+                                <Button
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Top"
+                                    Click="OnBtnClickPathSaveDir"
+                                    Content="   ...   " />
+                            </StackPanel>
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
+
+                <StackPanel
+                    Margin="40"
+                    HorizontalAlignment="Right"
+                    Orientation="Vertical">
+                    <Button
+                        HorizontalContentAlignment="Right"
+                        VerticalContentAlignment="Center"
+                        Click="OnBtnClickHelp"
+                        Content="   Help   " />
+                </StackPanel>
             </StackPanel>
 
 
             <!--  BUTTON  -->
             <StackPanel
                 Grid.Row="1"
-                Margin="10"
+                Margin="1"
                 VerticalAlignment="Stretch"
                 Orientation="Horizontal">
-                <Button
-                    Click="onClickLoadData"
-                    Content="Load Data"
-                    IsEnabled="{Binding IsBtnLoadDataClickable}" />
-                <Button
-                    Click="OnClickFilter"
-                    Content="Filter"
-                    IsEnabled="{Binding IsBtnFilterClickable}" />
-                <Button
-                    Click="OnClickLoadObs"
-                    Content="Load Obs"
-                    IsEnabled="{Binding IsBtnLoadObsClickable}" />
+                <StackPanel Margin="10" Orientation="Horizontal">
+                    <Button
+                        Margin="5"
+                        Padding="10"
+                        Click="OnClickLoadData"
+                        Content="Read Files"
+                        IsEnabled="{Binding IsBtnLoadDataClickable}" />
+                    <Label Margin="10,10,1,10" Content="Filter:" />
+                    <TextBox
+                        x:Name="mainTbFilter"
+                        Width="200"
+                        Margin="1,10,10,10"
+                        MaxLength="100"
+                        MaxLines="1"
+                        Text="{Binding Filter}"
+                        TextChanged="OnTextChangedFilter" />
+                    <Button
+                        Margin="5"
+                        Padding="10"
+                        Click="OnClickFilter"
+                        Content="Filter"
+                        IsEnabled="{Binding IsBtnFilterClickable}" />
+                    <Button
+                        Margin="5"
+                        Padding="10"
+                        Click="OnClickLoadObs"
+                        Content="Show List"
+                        IsEnabled="{Binding IsBtnLoadObsClickable}" />
+                    <Button
+                        Margin="5"
+                        Padding="10"
+                        Click="OnClickSaveCSV"
+                        Content="Save and Write CSV"
+                        IsEnabled="{Binding IsBtnSaveClickable}" />
+
+                </StackPanel>
             </StackPanel>
 
 
@@ -75,53 +164,53 @@
                 <!--  WARINIG DataGrid needs a fix Height for best UI performance  -->
                 <DataGrid
                     x:Name="mainDataGrid"
-                    Height="450"
+                    Height="420"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
+                    CellEditEnding="OnCellEditEnding"
                     HorizontalScrollBarVisibility="Visible"
                     ItemsSource="{Binding ObsObjOnBaseTrad}"
                     ScrollViewer.CanContentScroll="True"
                     ScrollViewer.HorizontalScrollBarVisibility="Visible"
                     ScrollViewer.VerticalScrollBarVisibility="Visible"
-                    CellEditEnding="OnCellEditEnding"
                     SelectionUnit="Cell"
                     VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
                         <DataGridTextColumn
-                            Width="*" 
-                            Binding="{Binding id}"
+                            Width="*"
+                            Binding="{Binding Id}"
                             CanUserResize="True"
-                            Header="id"
+                            Header="Id"
                             IsReadOnly="true" />
                         <DataGridTextColumn
                             Width="*"
-                            Binding="{Binding source}"
+                            Binding="{Binding Source}"
                             CanUserResize="true"
-                            Header="source"
+                            Header="Source"
                             IsReadOnly="True" />
                         <DataGridTextColumn
                             Width="*"
-                            Binding="{Binding description}"
+                            Binding="{Binding Description}"
                             CanUserResize="true"
-                            Header="description"
+                            Header="Description"
                             IsReadOnly="True" />
                         <DataGridTextColumn
                             Width="*"
-                            Binding="{Binding tradEN}"
+                            Binding="{Binding TradEN}"
                             CanUserResize="True"
-                            Header="tradEN"
+                            Header="TradEN"
                             IsReadOnly="False" />
                         <DataGridTextColumn
                             Width="*"
-                            Binding="{Binding tradFR}"
+                            Binding="{Binding TradFR}"
                             CanUserResize="True"
-                            Header="tradFR"
+                            Header="TradFR"
                             IsReadOnly="False" />
                         <DataGridTextColumn
                             Width="*"
-                            Binding="{Binding tradDE}"
+                            Binding="{Binding TradDE}"
                             CanUserResize="True"
-                            Header="tradDE"
+                            Header="TradDE"
                             IsReadOnly="False" />
                     </DataGrid.Columns>
                 </DataGrid>
