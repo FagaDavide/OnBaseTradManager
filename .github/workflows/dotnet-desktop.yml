@@ -30,7 +30,7 @@ jobs:
       
     # COUCOU2
     - name: COUCOU2
-      run: 
+      run: echo "le bon chemin $GITHUB_WORKSPACE"
       
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
