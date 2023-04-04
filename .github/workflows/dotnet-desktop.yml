@@ -52,11 +52,11 @@ jobs:
         
     # COUCOU3
     - name: COUCOU3
-      run: dir ${{github.workspace}}\$env:Solution_Folder
+      run: tree ${{github.workspace}}\$env:Solution_Folder
         
     # Create Artifact
     - uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: ${{github.workspace}}\$env:Solution_Folder\$PATH_Bin_Debug_Net6
+        path: ${{github.workspace}}\$env:Solution_Folder\$env:PATH_Bin_Debug_Net6
         
