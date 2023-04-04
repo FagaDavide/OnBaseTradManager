@@ -55,7 +55,8 @@ jobs:
       run: tree /F ${{github.workspace}}\$env:Solution_Folder
         
     # Create Artifact
-    - uses: actions/upload-artifact@v3
+    - name: Create Artifact 
+      uses: actions/upload-artifact@v3
       with:
         name: OnBaseTradManager_artifact
-        path: env:AppPackages_Path
+        path: $env:AppPackages_Path
