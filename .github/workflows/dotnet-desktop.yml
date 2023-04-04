@@ -17,7 +17,7 @@ jobs:
     env:
       Solution_Name: OnBaseTradManager.sln
       Solution_Folder: OnBaseTradManager
-      PATH_Bin_Debug_Net6 : bin\Debug\net6.0-windows
+      Bin_Debug_Net6 : "bin\Debug\net6.0-windows"
 
     steps:
     - uses: actions/checkout@v3
@@ -52,7 +52,7 @@ jobs:
         
     # COUCOU3
     - name: COUCOU3
-      run: tree ${{github.workspace}}\$env:Solution_Folder
+      run: tree /F ${{github.workspace}}\$env:Solution_Folder
         
     # Create Artifact
     - uses: actions/upload-artifact@v3
