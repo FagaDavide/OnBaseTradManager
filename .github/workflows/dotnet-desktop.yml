@@ -23,5 +23,5 @@ jobs:
 
     # COUCOU
     - name: COUCOU
-        run:  echo "${{ github.workspace }}"
+        run:  echo "$GITHUB.WORKSPACE"
         
