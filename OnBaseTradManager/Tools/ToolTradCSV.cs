@@ -5,11 +5,11 @@ Author ...... : Davide Faga
 Date ........ : 28.03.2023
 \*====================================================================*/
 using OnBaseTradManager.Models;
+using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
 
 namespace OnBaseTradManager.Tools
 {

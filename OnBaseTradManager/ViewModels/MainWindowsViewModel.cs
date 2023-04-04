@@ -4,12 +4,12 @@ Role ........ : Main ViewModel manage all datas
 Author ...... : Davide Faga
 Date ........ : 28.03.2023
 \*====================================================================*/
-using Microsoft.IdentityModel.Tokens;
 using OnBaseTradManager.Models;
 using OnBaseTradManager.Tools;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using System.Linq;
 
