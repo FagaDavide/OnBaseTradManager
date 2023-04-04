@@ -1,5 +1,5 @@
 
-name: .NET Core Desktop
+name: .NET OnBase Traduction Manager
 
 on:
   push:
@@ -21,8 +21,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name: Install dependencies
-        run: dotnet restore
-          
-    - name: Build
-        run: dotnet build --configuration Release --no-restore
+    # COUCOU
+    - name: COUCOU
+        run:  echo ${{ github.workspace }}
+        
