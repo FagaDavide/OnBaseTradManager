@@ -17,7 +17,7 @@ jobs:
     env:
       Solution_Name: OnBaseTradManager.sln
       Solution_Folder: OnBaseTradManager
-      Bin_Debug_Net6 : "bin\Debug\net6.0-windows"
+      Bin_Debug_Net6 : bin\Debug\net6.0-windows
 
     steps:
     - uses: actions/checkout@v3
