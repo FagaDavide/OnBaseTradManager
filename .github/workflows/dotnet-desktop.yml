@@ -54,9 +54,14 @@ jobs:
     - name: COUCOU3
       run: tree /F ${{github.workspace}}\$env:Solution_Folder
         
-    # Create Artifact
+    # Create Artifact1
     - uses: actions/upload-artifact@v3
       with:
-        name: my-artifact
-        path: ${{github.workspace}}\$env:Solution_Folder\$env:PATH_Bin_Debug_Net6
+        name: my-artifact1
+        path: D:\a\OnBaseTradManager\OnBaseTradManager\OnBaseTradManager.Package\        
         
+    # Create Artifact2
+    - uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact1
+        path: D:\a\OnBaseTradManager\OnBaseTradManager\
