@@ -42,6 +42,11 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
         
+        
+    # COUCOU3
+    - name: COUCOU3
+      run: dir ${{github.workspace}}\$env:Solution_Folder
+        
     # Create Artifact
     - uses: actions/upload-artifact@v3
       with:
