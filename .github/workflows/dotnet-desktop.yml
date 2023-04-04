@@ -23,5 +23,5 @@ jobs:
 
     # COUCOU
     - name: COUCOU
-      run: echo "Le bon chemin est $GITHUB_WORKSPACE"
+      run: echo "Le bon chemin est ${GITHUB_WORKSPACE}"
         
