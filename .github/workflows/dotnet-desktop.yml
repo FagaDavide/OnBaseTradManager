@@ -17,7 +17,7 @@ jobs:
     env:
       Solution_Name: OnBaseTradManager.sln
       Solution_Folder: OnBaseTradManager
-      Bin_Debug_Net6 : bin\Debug\net6.0-windows
+      AppPackages_Path : ${{github.workspace}}\OnBaseTradManager\AppPackages
 
     steps:
     - uses: actions/checkout@v3
@@ -34,6 +34,7 @@ jobs:
     - name: COUCOU2
       run: dir ${{github.workspace}}\$env:Solution_Folder
       
+    # Install MSbuild
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
       
@@ -49,19 +50,12 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
         
-        
     # COUCOU3
     - name: COUCOU3
       run: tree /F ${{github.workspace}}\$env:Solution_Folder
         
-    # Create Artifact1
+    # Create Artifact
     - uses: actions/upload-artifact@v3
       with:
-        name: my-artifact1
-        path: D:\a\OnBaseTradManager\OnBaseTradManager\OnBaseTradManager.Package\        
-        
-    # Create Artifact2
-    - uses: actions/upload-artifact@v3
-      with:
-        name: my-artifact1
-        path: D:\a\OnBaseTradManager\OnBaseTradManager\
+        name: OnBaseTradManager_artifact
+        path: env:AppPackages_Path
