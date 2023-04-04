@@ -6,14 +6,13 @@ on:
     branches: [ "test" ]
 
 jobs:
-
   build:
-
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        configuration: [Debug] 
-
-    runs-on: windows-latest  
+        os: [windows-latest]
+        configuration: [Debug]
+        nuget: [latest]
 
     env:
       Solution_Name: OnBaseTradManager.sln                       
@@ -24,7 +23,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0
+        fetch-depth: 0,
+        
+    - name: Setup NuGet.exe
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: ${{ matrix.nuget }}
+    - run: nuget restore OnBaseTradManager.sln
 
     # Install the .NET Core workload
     - name: Install .NET Core
@@ -34,7 +39,7 @@ jobs:
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2 
+      uses: microsoft/setup-msbuild@v1.1 
 
     # Create the app package by building and packaging the Windows Application Packaging project
     - name: Create the app package
