@@ -17,6 +17,7 @@ jobs:
     env:
       Solution_Name: OnBaseTradManager.sln
       Solution_Folder: OnBaseTradManager
+      PATH_Bin_Debug_Net6 : bin\Debug\net6.0-windows
 
     steps:
     - uses: actions/checkout@v3
@@ -57,5 +58,5 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: path/to/artifact/ # or path/to/artifact
+        path: ${{github.workspace}}\$env:Solution_Folder\PATH_Bin_Debug_Net6
         
