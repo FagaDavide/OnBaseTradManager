@@ -36,9 +36,11 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
       
-    # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore the application
-      run: msbuild ${{github.workspace}}\$env:Solution_Folder\$env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+   
+        
+    # Build the application to populate the bin folder
+    - name: Build the application
+      run: msbuild ${{github.workspace}}\$env:Solution_Folder\$env:Solution_Name /t:Build /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
         
