@@ -13,6 +13,9 @@ jobs:
         os: [windows-latest]
         configuration: [Debug]
         nuget: [latest]
+        
+    env:
+      Solution_Name: OnBaseTradManager.sln     
 
     steps:
     - uses: actions/checkout@v3
@@ -24,4 +27,14 @@ jobs:
     # COUCOU
     - name: COUCOU
       run: env
+      
+    # COUCOU2
+    - name: COUCOU2
+      run: 
+      
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
         
