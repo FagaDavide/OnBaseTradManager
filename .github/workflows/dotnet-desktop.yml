@@ -23,5 +23,5 @@ jobs:
 
     # COUCOU
     - name: COUCOU
-        run: echo "$GITHUB_WORKSPACE"
+        run: echo "COUCOU"
         
