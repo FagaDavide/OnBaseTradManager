@@ -39,13 +39,13 @@ jobs:
       
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
-      run: msbuild ${{github.workspace}}\$env:Solution_Folder\$env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      run: msbuild -m ${{github.workspace}}\$env:Solution_Folder\$env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
         
     # Build the application to populate the bin folder
     - name: Build the application
-      run: msbuild ${{github.workspace}}\$env:Solution_Folder\$env:Solution_Name /t:Build /p:Platform=x64 /p:Configuration=$env:Configuration
+      run: msbuild -m ${{github.workspace}}\$env:Solution_Folder\$env:Solution_Name /t:Build /p:Platform=x64 /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
         
@@ -58,5 +58,5 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: ${{github.workspace}}\$env:Solution_Folder\PATH_Bin_Debug_Net6
+        path: ${{github.workspace}}\$env:Solution_Folder\$PATH_Bin_Debug_Net6
         
