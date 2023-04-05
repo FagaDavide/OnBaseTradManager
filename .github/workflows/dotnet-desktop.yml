@@ -33,10 +33,9 @@ jobs:
       
     # Create Certificate
     - name: Create Code Signing Certificate
-      run:
-        New-Item -ItemType directory -Path certificate
-        Set-Content -Path certificate\certificate.txt -Value '${{ secrets.DOT_NET_SECRET }}'
-        certutil -decode certificate\certificate.txt certificate\certificate.pfx
+      run: New-Item -ItemType directory -Path certificate
+      run: Set-Content -Path certificate\certificate.txt -Value '${{ secrets.DOT_NET_SECRET }}'
+      run: certutil -decode certificate\certificate.txt certificate\certificate.pfx
     
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
