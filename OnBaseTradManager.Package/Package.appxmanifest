@@ -13,7 +13,7 @@
 
   <Properties>
     <DisplayName>OnBaseTradManager.Package</DisplayName>
-    <PublisherDisplayName>FagaD</PublisherDisplayName>
+    <PublisherDisplayName>FagaDavide</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
@@ -43,7 +43,6 @@
   </Applications>
 
   <Capabilities>
-    <Capability Name="internetClient" />
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 </Package>
