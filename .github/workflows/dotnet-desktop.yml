@@ -42,7 +42,7 @@ jobs:
     - name: Restore the application
       run: msbuild -m ${{github.workspace}}\$env:Solution_Folder\$env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
       env:
-        Configuration: ${{ matrix.configuration }}
+        Configuration: ${{ matrix.configuration }} 
         
     # Build the application to populate the bin folder
     - name: Build the application
