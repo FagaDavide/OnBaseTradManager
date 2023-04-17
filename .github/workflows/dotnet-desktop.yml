@@ -26,4 +26,21 @@ jobs:
       with:
         dotnet-version: 6.0.x 
       
+    # Install MSbuild
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+      
+      
+    # Create Certificate
+    - name: Create Code Signing Certificate
+      run: |
+        New-Item -ItemType directory -Path certificate
+        Set-Content -Path certificate\certificate.txt -Value '${{ secrets.DOT_NET_SECRET }}'
+        certutil -decode certificate\certificate.txt certificate\certificate.pfx
     
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore the application
+      run: msbuild -m ${{github.workspace}}\$env:Solution_Folder\$env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }} 
+        
