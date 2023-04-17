@@ -61,5 +61,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: OnBaseTradManager_artifact
-        path: 'D:\A\ONBASETRADMANAGER\ONBASETRADMANAGER\ONBASETRADMANAGER'
+        path: 'D:\A\ONBASETRADMANAGER\ONBASETRADMANAGER\'
         #path: $env:AppPackages_Path
