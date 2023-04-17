@@ -17,7 +17,7 @@ jobs:
     env:
       Solution_Name: OnBaseTradManager.sln
       Solution_Folder: OnBaseTradManager
-      AppPackages_Path : ${{github.workspace}}\OnBaseTradManager\AppPackages
+      AppPackages_Path : ${{github.workspace}}\OnBaseTradManager\AppPackages 
 
     steps:
     - uses: actions/checkout@v3
