@@ -17,7 +17,8 @@ jobs:
     env:
       Solution_Name: OnBaseTradManager.sln
       Solution_Folder: OnBaseTradManager
-      AppPackages_Path : ${{github.workspace}}\OnBaseTradManager\AppPackages 
+      AppPackages_Path : ${{github.workspace}}\OnBaseTradManager.Package\AppPackages 
+      AppVersion_Name: OnBaseTradManager.Package_1.0.0.0_x64_Debug_Test
 
     steps:
     - uses: actions/checkout@v3
@@ -29,7 +30,6 @@ jobs:
     # Install MSbuild
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
-      
       
     # Create Certificate
     - name: Create Code Signing Certificate
@@ -50,6 +50,12 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
         
+         # Sign App 
+    - name: Code Sign 2020
+      run: |
+        & 'C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe' sign /f certificate\certificate.pfx /t http://timestamp.comodoca.com/authenticode 'D:\A\ONBASETRADMANAGER\ONBASETRADMANAGER\OnBaseTradManager.Package\AppPackages\OnBaseTradManager.Package_1.0.0.0_x64_Debug_Test\OnBaseTradManager.Package_1.0.0.0_x64_Debug.msix'
+  
+        
     # Show all folder
     - name: Show all folder
       run: tree /F ${{github.workspace}}
@@ -62,4 +68,4 @@ jobs:
       with:
         name: OnBaseTradManager_artifact
         path: 'D:\A\ONBASETRADMANAGER\ONBASETRADMANAGER\OnBaseTradManager.Package\AppPackages\OnBaseTradManager.Package_1.0.0.0_x64_Debug_Test\'
-        #path: $env:AppPackages_Path
+        #path: ${{github.workspace}}\$env:AppPackages_Path
