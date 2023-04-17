@@ -55,7 +55,7 @@ jobs:
       run: tree /F ${{github.workspace}}\$env:Solution_Folder
       
      # Sign App 
-    - name: Code Sign 2020
+    - name: Sign App
       run: |
         & 'C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe' sign /f certificate\certificate.pfx /t http://timestamp.comodoca.com/authenticode ProjectName\bin\Release\AssemblyName.2020.dll
   
@@ -65,4 +65,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: OnBaseTradManager_artifact
-        path: $env:AppPackages_Path
+        path: 'D:\A\ONBASETRADMANAGER\ONBASETRADMANAGER\ONBASETRADMANAGER'
+        #path: $env:AppPackages_Path
