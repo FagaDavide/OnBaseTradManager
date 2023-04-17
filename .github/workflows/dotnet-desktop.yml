@@ -52,14 +52,14 @@ jobs:
         
     # Show all folder
     - name: Show all folder
-      run: tree /F ${{github.workspace}}\$env:Solution_Folder
+      run: tree /F ${{github.workspace}}
+      #run: tree /F ${{github.workspace}}\$env:Solution_Folder
       
    
-        
     # Create Artifact
     - name: Create Artifact 
       uses: actions/upload-artifact@v3
       with:
         name: OnBaseTradManager_artifact
-        path: 'D:\A\ONBASETRADMANAGER\ONBASETRADMANAGER\'
+        path: 'D:\A\ONBASETRADMANAGER\ONBASETRADMANAGER\OnBaseTradManager.Package\AppPackages\OnBaseTradManager.Package_1.0.0.0_x64_Debug_Test\'
         #path: $env:AppPackages_Path
