@@ -54,11 +54,7 @@ jobs:
     - name: Show all folder
       run: tree /F ${{github.workspace}}\$env:Solution_Folder
       
-     # Sign App 
-    - name: Sign App
-      run: |
-        & 'C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe' sign /f certificate\certificate.pfx /t http://timestamp.comodoca.com/authenticode ProjectName\bin\Release\AssemblyName.2020.dll
-  
+   
         
     # Create Artifact
     - name: Create Artifact 
