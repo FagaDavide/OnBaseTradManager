@@ -50,10 +50,6 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
         
-    # Sign App 
-    - name: Sign App 
-      run: |
-        & 'C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe' sign /fd SHA256 /f certificate\certificate.pfx /t http://timestamp.comodoca.com 'D:\A\ONBASETRADMANAGER\ONBASETRADMANAGER\OnBaseTradManager.Package\AppPackages\OnBaseTradManager.Package_1.0.0.0_x64_Debug_Test\OnBaseTradManager.Package_1.0.0.0_x64_Debug.msix'
   
         
     # Show all folder
