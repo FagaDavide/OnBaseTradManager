@@ -41,7 +41,7 @@ jobs:
     # Test FAGA
     - name: Test FAGA SIGN
       run: |
-        Get-ChildItem signtool.exe
+        Get-ChildItem -Path D:\ 
     
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
