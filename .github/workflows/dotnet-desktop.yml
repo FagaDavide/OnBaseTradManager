@@ -50,14 +50,11 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
         
-   
-        
-    # Show all folder
-    - name: Show all folder
-      run: tree /F ${{github.workspace}}
-      #run: tree /F ${{github.workspace}}\$env:Solution_Folder
-      
-   
+    # Sign App 
+    - name: Sign App 
+      run: |
+        & 'C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe' sign /fd SHA256 /t http://timestamp.comodoca.com /f certificate\certificate.pfx 'D:\A\ONBASETRADMANAGER\ONBASETRADMANAGER\OnBaseTradManager.Package\AppPackages\OnBaseTradManager.Package_1.0.0.0_x64_Debug_Test\OnBaseTradManager.Package_1.0.0.0_x64_Debug.msix'
+     
     # Create Artifact
     - name: Create Artifact 
       uses: actions/upload-artifact@v3
